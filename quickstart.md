@@ -444,13 +444,6 @@ async function createSubnet() {
 }
 ```
 
-## Code Samples
-
-More code samples for using the management library for JS/TS SDK can be found in [JS/TS SDK Code Samples](https://github.com/Azure-Samples/azure-samples-js-management)
-
-*Please Note that these samples provided in JS/TS SDK Code Samples are written in Typescript*
-
-
 Need help?
 ----------
 
