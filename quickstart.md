@@ -317,14 +317,13 @@ async function main() {
 ```
 
 
-Example: Managing Virtual Machines
+Example: Managing Virtual Networks
 ---------------------------------
-In addition to resource groups, we will also use Virtual Machine as an example and show how to manage how to create a Virtual Machine which involves three Azure services (Resource Group, Network and Compute)
+In addition to resource groups, we will also use Virtual Networks as an example
 
 ***Import the packages***  
 Typescript
 ```typescript
-import * as compute from "@azure/arm-compute";
 import * as network from "@azure/arm-network";
 import * as resources from "@azure/arm-resources";
 import { DefaultAzureCredential } from "@azure/identity";
@@ -333,7 +332,6 @@ Javascript
 ```javascript
 const identity = require("@azure/identity");
 const resources = require("@azure/arm-resources");
-const compute = require("@azure/arm-compute");
 const network = require("@azure/arm-network");
 ```
 
@@ -342,7 +340,6 @@ Typescript or Javascript
 ```typescript
 const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
 const resourceGroupName = "testRG";
-const virtualMachineName = "virtualmachinex";
 const subnetName = "subnetnamex";
 const interfaceName = "interfacex";
 const networkName = "networknamex";
@@ -353,14 +350,12 @@ const location = "eastus";
 Typescript
 ```typescript
 const credential = new DefaultAzureCredential();
-const computeClient = new compute.ComputeManagementClient(credential, subscriptionId);
 const networkClient = new network.NetworkManagementClient(credential, subscriptionId);
 const resourcesClient = new resources.ResourceManagementClient(credential, subscriptionId);
 ```
 Javascript
 ```javascript
 const credential = new identity.DefaultAzureCredential();
-const computeClient = new compute.ComputeManagementClient(credential, subscriptionId);
 const networkClient = new network.NetworkManagementClient(credential, subscriptionId);
 const resourcesClient = new resources.ResourceManagementClient(credential, subscriptionId);
 ```
@@ -446,46 +441,6 @@ async function createSubnet() {
     };
     const subnet_create_info = await networkClient.subnets.beginCreateOrUpdateAndWait(resourceGroupName, networkName, subnetName, subnet_parameter);
     console.log(subnet_create_info)
-}
-```
-
-***Creating a Network Interface***  
-Typescript
-```typescript
-async function createNetworkInterface(group_name: any, location: any, nic_name: any) {
-    const parameter: network.NetworkInterface = {
-        location: location,
-        ipConfigurations: [
-            {
-                name: "MyIpConfig",
-                subnet: {
-                    id: "/subscriptions/" + subscriptionId + "/resourceGroups/" + resourceGroupName + "/providers/Microsoft.Network/virtualNetworks/" + networkName + "/subnets/" + subnetName
-
-                }
-            }
-        ]
-    };
-    const nic_info = await networkClient.networkInterfaces.beginCreateOrUpdateAndWait(group_name, nic_name, parameter);
-    console.log(nic_info);
-}
-```
-Javascript
-```javascript
-async function createNetworkInterface(group_name, location, nic_name) {
-    const parameter = {
-        location: location,
-        ipConfigurations: [
-            {
-                name: "MyIpConfig",
-                subnet: {
-                    id: "/subscriptions/" + subscriptionId + "/resourceGroups/" + resourceGroupName + "/providers/Microsoft.Network/virtualNetworks/" + networkName + "/subnets/" + subnetName
-
-                }
-            }
-        ]
-    };
-    const nic_info = await networkClient.networkInterfaces.beginCreateOrUpdateAndWait(group_name, nic_name, parameter);
-    console.log(nic_info);
 }
 ```
 
