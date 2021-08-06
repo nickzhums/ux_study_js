@@ -129,7 +129,7 @@ Example: Creating a Resource Group
 ***Import the packages***  
 Typescript
 ```typescript
-import * as resources from "@azure/arm-resources";
+import { ResourceManagementClient, ResourceGroup } from "@azure/arm-resources";
 import { DefaultAzureCredential } from "@azure/identity";
 ```
 Javascript
@@ -143,7 +143,7 @@ Typescript
 ```typescript
 const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
 const credential = new DefaultAzureCredential();
-const resourcesClient = new resources.ResourceManagementClient(credential, subscriptionId);
+const resourcesClient = new ResourceManagementClient(credential, subscriptionId);
 ```
 Javascript
 ```javascript
@@ -156,7 +156,7 @@ const resourcesClient = new resources.ResourceManagementClient(credential, subsc
 Typescript
 ```typescript
 async function updateResourceGroup(resourceGroupName: string) {
-    const parameter:resources.ResourceGroup = {
+    const parameter: ResourceGroup = {
         location: "eastus",
         tags: {
             tag1: "value1"
@@ -193,7 +193,7 @@ Example: Managing Resource Groups with JS/TS SDK
 ***Import the packages***  
 Typescript
 ```typescript
-import * as resources from "@azure/arm-resources";
+import { ResourceManagementClient, ResourceGroup, ResourceGroupPatchable } from "@azure/arm-resources";
 import { DefaultAzureCredential } from "@azure/identity";
 ```
 Javascript
@@ -207,7 +207,7 @@ Typescript
 ```typescript
 const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
 const credential = new DefaultAzureCredential();
-const resourcesClient = new resources.ResourceManagementClient(credential, subscriptionId);
+const resourcesClient = new ResourceManagementClient(credential, subscriptionId);
 ```
 Javascript
 ```javascript
@@ -220,7 +220,7 @@ const resourcesClient = new resources.ResourceManagementClient(credential, subsc
 Typescript
 ```typescript
 async function updateResourceGroup(resourceGroupName: string) {
-    const parameter:resources.ResourceGroupPatchable = {
+    const parameter: ResourceGroupPatchable = {
         tags: {
             tag1: "value1",
             tag2: "value2"
@@ -242,7 +242,6 @@ async function updateResourceGroup(resourceGroupName) {
             tag2: "value2"
         }
     };
-    const resourcesClient = new resources.ResourceManagementClient(credential, subscriptionId);
     await resourcesClient.resourceGroups.update(resourceGroupName, parameter).then(
         result => {
             console.log(result);
@@ -324,8 +323,8 @@ In addition to resource groups, we will also use Virtual Networks as an example
 ***Import the packages***  
 Typescript
 ```typescript
-import * as network from "@azure/arm-network";
-import * as resources from "@azure/arm-resources";
+import { NetworkManagementClient, VirtualNetwork, Subnet, NetworkInterface } from "@azure/arm-network";
+import { ResourceManagementClient, ResourceGroup } from "@azure/arm-resources";
 import { DefaultAzureCredential } from "@azure/identity";
 ```
 Javascript
@@ -350,8 +349,8 @@ const location = "eastus";
 Typescript
 ```typescript
 const credential = new DefaultAzureCredential();
-const networkClient = new network.NetworkManagementClient(credential, subscriptionId);
-const resourcesClient = new resources.ResourceManagementClient(credential, subscriptionId);
+const networkClient = new NetworkManagementClient(credential, subscriptionId);
+const resourcesClient = new ResourceManagementClient(credential, subscriptionId);
 ```
 Javascript
 ```javascript
@@ -364,7 +363,7 @@ const resourcesClient = new resources.ResourceManagementClient(credential, subsc
 Typescript
 ```typescript
 async function createResourceGroup() {
-    const parameter: resources.ResourceGroup = {
+    const parameter: ResourceGroup = {
         location: "eastus",
         tags: {
             tag1: "value1"
@@ -398,7 +397,7 @@ async function createResourceGroup() {
 Typescript
 ```typescript
 async function createVirtualNetwork() {
-    const parameter: network.VirtualNetwork = {
+    const parameter: VirtualNetwork = {
         location: location,
         addressSpace: {
             addressPrefixes: ['10.0.0.0/16']
@@ -426,7 +425,7 @@ async function createVirtualNetwork() {
 Typescript
 ```typescript
 async function createSubnet() {
-    const subnet_parameter: network.Subnet = {
+    const subnet_parameter: Subnet = {
         addressPrefix: "10.0.0.0/24"
     };
     const subnet_create_info = await networkClient.subnets.beginCreateOrUpdateAndWait(resourceGroupName, networkName, subnetName, subnet_parameter);
