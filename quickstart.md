@@ -442,6 +442,46 @@ async function createSubnet() {
     console.log(subnet_create_info)
 }
 ```
+Long Running Operations
+-----------------------
+In the samples above, you might notice that some operations has a ``begin`` prefix (for example, ``beginCreateOrUpdateAndWait``). This indicates the operation is a Long-Running Operation (In short, LRO). For resource managment libraries, this kind of operation is quite common since certain resource operations may take a while to finish. To use such operations, there are two common cases
+
+## Case 1 : Operations that will poll until finish and return the result directly 
+
+If you do not really need to control the poller, you can just let the SDK poll until the operation is finished, then get the result directly. To illustrate this pattern, here is an example
+
+```typescript
+const computeClient = new compute.ComputeManagementClient(credential, subscriptionId);
+await computeClient.dedicatedHosts
+  .beginCreateOrUpdateAndWait(resourceGroupName, hostGroupName, hostName, parameter)
+  .then((response) => {
+    console.log(response);
+  });
+```
+
+## Case 2 : Get the poller to manually poll for the result
+
+Sometimes you may want to get the poller directly and manually write the polling code. Here's the example for such case:
+
+```typescript
+const computeClient = new compute.ComputeManagementClient(credential, subscriptionId);
+const poller = await computeClient.dedicatedHosts.beginCreateOrUpdate(
+  resourceGroupName,
+  hostGroupName,
+  hostName,
+  parameter
+);
+poller.onProgress((state) => {
+  console.log(`Are we done yet? ${Boolean(state.isCompleted)});
+})
+const result = await poller.pollUntilDone().then((response) => {
+  console.log(response);
+});
+```
+
+
+For more information regarding LRO, you can refer to [this document](https://github.com/Azure/azure-sdk-for-js/blob/main/documentation/MIGRATION-guide-for-next-generation-management-libraries.md#long-running-operations)
+
 
 Need help?
 ----------
