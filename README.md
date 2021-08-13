@@ -47,8 +47,8 @@ Next, you will be setting up all the components needed for a Virtual Machine:
 Now it is time to setup the Network Interface for the Virtual Machine, but first you need to get a new public IP address. Create a new IP address from the Resource Group and name it as you wish. After that, you should be able to create a Network Interface with the public IP address that you just created.
 
 Feel free to use the REST API reference here:
-[Public IP Addresses](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/public-ip-addresses)
-[Network Interfaces](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/network-interfaces)
+- [Public IP Addresses](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/public-ip-addresses)
+- [Network Interfaces](https://docs.microsoft.com/en-us/rest/api/virtualnetwork/network-interfaces)
 
 
 #### Task 5 - Create a Virtual Machine
