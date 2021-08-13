@@ -55,6 +55,9 @@ Feel free to use the REST API reference here:
 
 For the last step, you will be able to create a new Virtual Machine. Construct the Virtual Machine using the name of the Virtual Machine, username, and password that you want, as well as the Network Interface ID.
 
+Similar to Task 4, you can refer to API documentation here
+- [Virtual Machines](https://docs.microsoft.com/en-us/rest/api/compute/virtual-machines)
+
 ### Validating
 Finally, to validate that your Virtual Machine has been successfully created, display the Virtual Machine ID in the console.
 
