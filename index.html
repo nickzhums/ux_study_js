@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure SDK for JavaScript/TypeScript - UX Study</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="header-title">Azure SDK for JavaScript/TypeScript</h1>
+            <div class="theme-switcher">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#overview" class="nav-link">Overview</a></li>
+                    <li><a href="#quickstart" class="nav-link">Quick Start</a></li>
+                    <li><a href="#vm-tutorial" class="nav-link">VM Tutorial</a></li>
+                </ul>
+            </nav>
+
+            <div class="content">
+                <section id="overview" class="section">
+                    <h2>Overview</h2>
+                    <p>We are excited to announce that a new set of management libraries are now in Public Preview. Those packages share a number of new features such as Azure Identity support, HTTP pipeline, error-handling, etc, and they also follow the new Azure SDK guidelines which create easy-to-use APIs that are idiomatic, compatible, and dependable.</p>
+                    
+                    <p>Currently, we have previewed several packages such as <code>@azure/arm-resources</code>, <code>@azure/arm-storage</code>, <code>@azure/arm-compute</code>, <code>@azure/arm-network</code> for next-generation. See more from npmjs.com and find the latest version under <code>next</code> tag and have a try.</p>
+                </section>
+
+                <section id="quickstart" class="section">
+                    <h2>Quick Start Guide</h2>
+                    
+                    <h3>Prerequisites</h3>
+                    <p>You will need the following values to authenticate to Azure:</p>
+                    <ul>
+                        <li><strong>Subscription ID</strong></li>
+                        <li><strong>Client ID</strong></li>
+                        <li><strong>Client Secret</strong></li>
+                        <li><strong>Tenant ID</strong></li>
+                    </ul>
+
+                    <h3>Install the package</h3>
+                    <p>As an example, to install the Azure Compute module, you would run:</p>
+                    <pre class="code-block"><code>npm i @azure/arm-compute@30.0.0-beta.1</code></pre>
+                    
+                    <p>We also recommend installing other packages for authentication and core functionalities:</p>
+                    <pre class="code-block"><code>npm i @azure/identity</code></pre>
+
+                    <h3>Authentication</h3>
+                    <p>Once the environment is setup, all you need to do is to create an authenticated client. Our default option is to use <strong>DefaultAzureCredential</strong>:</p>
+                    <pre class="code-block"><code>const credential = new DefaultAzureCredential();</code></pre>
+                </section>
+
+                <section id="vm-tutorial" class="section">
+                    <h2>Create an Azure Virtual Machine</h2>
+                    
+                    <h3>Goal</h3>
+                    <p>Your company has entrusted you with creating their first Virtual Machine in Azure from scratch. For this task you are given a blank subscription with no infrastructure at all.</p>
+
+                    <h3>Task Overview</h3>
+                    <p>This task is subdivided in four sections:</p>
+                    <ol>
+                        <li>Creating a client and authenticate to Azure</li>
+                        <li>Creating the network infrastructure first</li>
+                        <li>Create components needed for the Virtual Machine</li>
+                        <li>Create the virtual machine</li>
+                    </ol>
+
+                    <h3>Steps</h3>
+                    
+                    <h4>Task 1 - Authentication</h4>
+                    <p>First step is always to authenticate to Azure and create a client to manage resources, please follow the documentation and create your client to access Azure resources.</p>
+
+                    <h4>Task 2 - Create a resource group</h4>
+                    <p>First, from your subscription you need to create the Resource Group where all the resources are going to live. You are also required to provide a location for the Resource Group, for this task, you can use <code>"westus2"</code>.</p>
+
+                    <h4>Task 3 - Create a virtual network</h4>
+                    <p>Next, you need to create a Virtual Network from the Resource Group, after which you need to add a Subnet in it. When creating the Virtual Network, you can use <code>10.0.0.0/16</code> when asked for the CIDR. After that, from that Virtual Network you can create a Subnet where you will use <code>10.0.0.0/24</code> for the Subnet CIDR.</p>
+
+                    <h4>Task 4 - Create a network interface</h4>
+                    <p>Now it is time to setup the Network Interface for the Virtual Machine, but first you need to get a new public IP address. Create a new IP address from the Resource Group and name it as you wish. After that, you should be able to create a Network Interface with the public IP address that you just created.</p>
+
+                    <h4>Task 5 - Create a Virtual Machine</h4>
+                    <p>For the last step, you will be able to create a new Virtual Machine. Construct the Virtual Machine using the name of the Virtual Machine, username, and password that you want, as well as the Network Interface ID.</p>
+
+                    <h4>Validating</h4>
+                    <p>Finally, to validate that your Virtual Machine has been successfully created, display the Virtual Machine ID in the console.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Microsoft Corporation. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
